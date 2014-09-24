@@ -1,12 +1,14 @@
 
 function initTornado() {
+	var tornadoDestruction = {};
 	var tornadoWidth = 100;
 	var tornadoHeight = 200;
 	var all = document.getElementsByTagName("*");
 	var leafNodes = [];
 	for (var i = 0; i < all.length; i++) {
 		if (all[i].childElementCount == 0 && all[i].tagName != "SCRIPT" && all[i].tagName != "META"
-			&& all[i].tagName != "LINK" && all[i].tagName != "TITLE" && all[i].tagName != "BR" && all[i].tagName != "STYLE") {
+			&& all[i].tagName != "LINK" && all[i].tagName != "TITLE" && all[i].tagName != "BR" && all[i].tagName != "STYLE"
+			&& !all[i].attributes.notornado) {
 			all[i].animationActive = false;
 			leafNodes.push(all[i]);
 		}
@@ -26,14 +28,17 @@ function initTornado() {
 	tornado.move(x, y);
 	var up_or_down = 1;
 	var left_or_right = 1;
-	setInterval(function() {
+	var interval = setInterval(function() {
 		if (y > ( window.innerHeight - 200 ) || y < 0) up_or_down *= -1;
 		if (x > ( window.innerWidth - 100 ) || x < 0) left_or_right *= -1;
 		x += Math.ceil(10 * left_or_right);
 		y += Math.ceil(10 * up_or_down);
+		var windowTop = $(document).scrollTop();
+		var windowLeft = $(document).scrollLeft();
 		for (var i = 0; i < leafNodes.length; i++) {
-			var myX = leafNodes[i].x || leafNodes[i].offsetLeft;
-			var myY = leafNodes[i].y || leafNodes[i].offsetTop;
+			var myX = findPos(leafNodes[i])[0] + windowLeft;
+			var myY = findPos(leafNodes[i])[1]
+			 + windowTop;
 			var myW = leafNodes[i].width || leafNodes[i].offsetWidth;
 			var myH = leafNodes[i].height || leafNodes[i].offsetHeight;
 			if (x + tornadoWidth/2 > myX && x - tornadoWidth/2 < myX + myW && 
@@ -61,22 +66,60 @@ function initTornado() {
 		}
 		tornado.move(x, y);
 	}, 80);
-	return tornado;
+	tornadoDestruction.stop = function() {
+		clearInterval(interval);
+		tornado.remove();
+	};
+	return tornadoDestruction;
+}
+
+function lightningStorm(timeout) {
+	var storm = {}
+	Lightning({
+		x: Math.random() * window.innerWidth,
+		end_x: Math.random() * window.innerWidth,
+		forking: true
+	}).guidedStrike();
+	var interval = setInterval(function() {
+		Lightning({
+			x: Math.random() * window.innerWidth,
+			end_x: Math.random() * window.innerWidth,
+			forking: true
+		}).guidedStrike();
+	}, timeout);
+	storm.stop = function() {
+		clearInterval(interval);
+	}
+	return storm;
 }
 
 function spawnTornado() {
 	var t = initTornado();
 	$('body').css("overflow-y", "scroll");
-	(function lightningStorm(timeout) {
-		setTimeout(function() {
-			Lightning({
-				x: Math.random() * window.innerWidth,
-				end_x: Math.random() * window.innerWidth,
-				forking: true
-			}).guidedStrike();
-			var nextTimeout = 2000 + Math.random() * 10000;
-			lightningStorm(nextTimeout);
-		}, timeout);
-	})(2000);
 	return t;
+}
+
+function findPos(obj) {
+    var curleft = 0;
+    var curtop = 0;
+    if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft);
+    if(obj.offsetTop) curtop += parseInt(obj.offsetTop);
+    if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop);
+    if(obj.offsetParent) {
+        var pos = findPos(obj.offsetParent);
+        curleft += pos[0];
+        curtop += pos[1];
+    } else if(obj.ownerDocument) {
+        var thewindow = obj.ownerDocument.defaultView;
+        if(!thewindow && obj.ownerDocument.parentWindow)
+            thewindow = obj.ownerDocument.parentWindow;
+        if(thewindow) {
+            if(thewindow.frameElement) {
+                var pos = findPos(thewindow.frameElement);
+                curleft += pos[0];
+                curtop += pos[1];
+            }
+        }
+    }
+    return [curleft,curtop];
 }
