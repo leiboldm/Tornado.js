@@ -1,0 +1,184 @@
+
+html { 
+	margin: 0px;
+	padding: 0px;
+}
+body { 
+	font-size: 14px; 
+	font-size:1.4rem;
+	background-color:#f0f0f0;
+	margin: 0px;
+	padding: 0px;
+}
+.headerTable {
+}
+.header {
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+	text-decoration: bold;
+}
+.banner {
+	font-size:16px;
+	text-align:center;
+	background-color:f0f0f0;
+}
+.titlename {
+	width: 100%;
+	font-size: 300%;
+	font-weight: bold;
+	color:#A00000;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+.contentsBlue {
+	padding-left:5%;
+	padding-right:5%;
+	background-color:#aaaadb;
+	font-color:black;
+	text-align:center;
+}
+.contentsOffwhite {
+	padding-left:5%;
+	padding-right:5%;
+	background-color:#f0f0f0;
+	font-color:black;
+	text-align:center;	
+}
+a {
+	text-decoration:none;
+}
+.ba:link {color:#e8e8e8;}    /* unvisited link */
+.ba:visited {color:#e8e8e8;} /* visited link */
+.ba:hover {color:#d8d8d8;}   /* mouse over link */
+.ba:active {color:#BBBBFF;}  /* selected link */
+.bannertd {
+	background-color:#303060;
+	font-size:18px;
+	font-size:1.8rem;
+	font-weight:bold;
+	color:white;
+	border: 5px #aaaadb;
+	border-style:groove;
+	border-collapse:collapse;
+	display: inline block;
+	text-align: center;
+}
+.bannertd:hover {background-color:#606060;
+	border-color:#9999db;}
+.bannertd:active {border-color:#7777db;
+	border-style:inset;}
+.but {
+	width:100%;
+	height:100%;
+}
+.regLtd {
+	padding-left:1%;
+	width:40%;
+	text-align:left;
+}
+.regRtd {
+	width:60%;
+	text-align:left;
+}
+.regtr {
+	font-size:20px;
+	font-size:2.0rem;
+	font-weight:bold;
+	height:40px;
+	padding-top:20px;
+}
+.regtralt {
+	height:40px;
+	padding-top:20px;
+	background-color:#e8e8e8;
+}
+table {
+	width:100%;
+}
+.paddedtable {
+	text-align:left;
+	font-size: 90%;
+}
+.vid {
+	width:320px;
+	height:200px;
+}
+.menuLink {
+	display: block;
+	border: 2px solid #489;
+	font-size: 125%;
+	margin: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 1px;
+	background-color: #303060;
+}
+.menuLink:active {
+	background-color: #124;
+	border: 2px solid #58A;
+}
+.menuLink span {
+	color: #EEE;
+	cursor: pointer;
+	width: 100%;
+}
+.menuLink a {
+	color: #EEE;
+	cursor: pointer;
+	width: 100%;
+	display: block;
+}
+.button {
+	border: 2px solid #379;
+	border-radius: 2px;
+	z-index: 30;
+  	background: -webkit-radial-gradient(#DEF, #BDF, #9BE); /* Safari 5.1 to 6.0 */
+  	background: -o-radial-gradient(#BDF, #ACF, #9BE); /* For Opera 11.6 to 12.0 */
+ 	background: -moz-radial-gradient(#BDF, #ACF, #9BE); /* For Firefox 3.6 to 15 */
+  	background: radial-gradient(#BDF, #ACF, #9BE); /* Standard syntax */
+}
+#navbar {
+	width: 100%;
+	z-index: 20;
+	margin: 0px;
+	padding: 0px;
+}
+#navtable {
+	width: 100%;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+#navbarspacer {
+ 	height: 0px;
+ 	width: 0px;
+}
+.pcHeader {
+	font-weight: bold;
+	font-size: 125%;
+	text-align: center;
+	width: 100%;
+}
+.pcText {
+	width: 100%;
+}
+.pcPic {
+	width: 100%;
+}
+.pcTextRight {
+	width: 100%;
+}
+.pcPicLeft {
+	width: 100%;
+}
+.pcContainer {
+	width: 95%;
+	margin: 0 auto;
+	display: block;
+}
+.customProgressBar {
+	display: inline-block;
+	margin: 0 auto;
+}

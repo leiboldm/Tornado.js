@@ -1,0 +1,213 @@
+html { 
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+body { 
+	/*background-color:#F0F0F0;*/
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	background-image: url(../images/background.png);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 100%;
+}
+.header {
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+	text-decoration: bold;
+	height: 100px;
+}
+.headerTable {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+.banner {
+	font-size:30px;
+	text-align:center;
+	background-color:#f0f0f0;
+}
+.titlename {
+	width: 100%;
+	font-size: 100px;
+	color:#A00000;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+.contentsBlue {
+	position:relative;
+	background-color: rgba(240, 240, 240, 0.95);
+	text-align:left;
+	color: #111111;
+}
+.contentsOffwhite {
+	position:relative;
+	background-color: rgba(240, 240, 240, 0.95);
+	text-align:left;
+	color: #111111;
+}
+p {
+	padding-left:20%;
+	padding-right:20%;
+}
+a {
+	text-decoration:none;
+}
+h2 {
+	padding-left:10%;
+}
+h3 {
+	padding-left:15%;
+}
+.ba:link {color:#b8b8b8;}    /* unvisited link */
+.ba:visited {color:white;} /* visited link */
+.ba:hover {color:white;}   /* mouse over link */
+.ba:active {color:#BBBBFF;}  /* selected link */
+.bannertd {
+	background-color:#303060;
+	color:#E8E8E8;
+	width:30%;
+	border: 5px #aaaadb;
+	border-style:groove;
+	border-collapse:collapse;
+	display: inline-block;
+	text-align: center;
+	font-size: 150%;
+}
+.bannertd:hover {background-color:#606060;
+	border-color:#9999db;}
+.bannertd:active {border-color:#7777db;
+	border-style:inset;}
+.but {
+	width:100%;
+	height:100%;
+}
+.regLtd {
+	padding-right:50px;
+	width:50%;
+	text-align:right;
+}
+.regRtd {
+	width:50%;
+	text-align:left;
+}
+.regtr {
+	height:40px;
+	padding-top:20px;
+}
+table {
+	width:100%;
+}
+.paddedtable {
+	padding-left:20%;
+	padding-right:20%;
+}
+.vid {
+	width:560px;
+	height:315px;
+}
+.menuLink {
+	display: inline;
+	border: 2px solid #489;
+	font-size: 125%;
+	margin: 0px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	background-color: #303060;
+}
+.menuLink:hover {
+	background-color: #124;
+}
+.menuLink span {
+	color: #EEE;
+	cursor: pointer;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.menuLink a {
+	color: #EEE;
+	cursor: pointer;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.button {
+	border: 2px solid #379;
+	border-radius: 2px;
+	z-index: 30;
+  	background: -webkit-radial-gradient(#DEF, #BDF, #9BE); /* Safari 5.1 to 6.0 */
+  	background: -o-radial-gradient(#BDF, #ACF, #9BE); /* For Opera 11.6 to 12.0 */
+ 	background: -moz-radial-gradient(#BDF, #ACF, #9BE); /* For Firefox 3.6 to 15 */
+  	background: radial-gradient(#BDF, #ACF, #9BE); /* Standard syntax */
+}
+.button:hover {
+	border: 2px solid #269;
+	background: -webkit-radial-gradient(#DEF, #ACE, #8BD); /* Safari 5.1 to 6.0 */
+  	background: -o-radial-gradient(#DEF, #ACE, #8BD); /* For Opera 11.6 to 12.0 */
+ 	background: -moz-radial-gradient(#DEF, #ACE, #8BD); /* For Firefox 3.6 to 15 */
+  	background: radial-gradient(#DEF, #ACE, #8BD); /* Standard syntax */
+}
+#navbar {
+	width: 100%;
+	height: 50px;
+	z-index: 20;
+	position: fixed;
+	margin: 0px;
+	padding: 0px;
+}
+#navtable {
+	width: 100%;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+#navbarspacer {
+ 	height:35px;
+ 	width: 100%;
+}
+.pcHeader {
+	font-weight: bold;
+	font-size: 125%;
+	text-align: left;
+	width: 90%;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	padding-left: 10%;
+}
+.pcText {
+	width: 60%;
+	float: left;
+}
+.pcPic {
+	width: 40%;
+	float: right;
+}
+.pcTextRight {
+	width: 60%;
+	float: right;
+}
+.pcPicLeft {
+	width: 40%;
+	float: left;
+}
+.pcPicLeft img {
+	padding-left: 30%;
+}
+.pcContainer {
+	width: 90%;
+	margin: 0 auto;
+	display: block;
+}
+.customProgressBar {
+	display: inline-block;
+	height: 200px;
+	width: 200px;
+}
+.skillsHolder div {
+	display: inline-block;
+	padding: 10px;
+}

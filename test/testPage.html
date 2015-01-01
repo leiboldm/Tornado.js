@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<head>
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="MobileOptimized" content="320" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+	<title>Matthew Leibold</title>
+	<meta name="description" content="Resume site for Matthew Leibold, a computer science student at the University of Michigan">
+	<link href="css/phone.css" rel="stylesheet" type="text/css" media="all and (max-width:480px)" />
+	<link href="css/desktop.css" rel="stylesheet" type="text/css" media="screen and (min-width:481px)"/>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<header class="header contentsOffwhite" style="width: 100%; padding-bottom: 10px" id="header">
+	<div id="title" class="titlename">Matthew Leibold</div>
+</header>
+<nav id="navbar">
+	<ul id="navtable">
+		<li class="menuLink"><a data-scroll href="#Aboutme">Bio</a>
+		<li class="menuLink"><a data-scroll href="#Contact">Contact</a>
+		<li class="menuLink"><a data-scroll href="#Classes">Education</a>
+		<li class="menuLink"><a data-scroll href="#Experience">Experience</a>
+		<li class="menuLink"><a data-scroll href="#Projects">Projects</a>
+		<li class="menuLink"><a data-scroll href="#Resume">Resume</a>
+		<li class="menuLink"><a data-scroll href="#Skills">Skills</a>
+	</ul>
+</nav>
+<div class="contentsBlue" id="Aboutme">
+	<br>
+	<h2>About Me</h2>
+	<div id="bioPic" class="pcPic"><img src="images/hkn_pic.jpg" style="height: 300px;"></div>
+	<div id="bioParagraph" class="pcText">
+		<p>
+		Welcome to my website.  I am a junior in computer science at the University of Michigan.
+		Born and raised in Denver, Colorado, I am a devoted follower of the Denver Broncos as well as the Michigan football and basketball teams.  My hobbies include making computer games, golf, and freestyle skiing.  This year I look forward to developing my android development skills via MHacks and side projects.  Below you will find more information about my education and job related skills.
+		</p>
+	</div>
+	<div style="clear: both;"></div>
+	<br>
+</div>
+<div class='contentsOffwhite' id="Classes">
+<br>
+<h2>Education</h2>
+<table class='paddedtable'>
+	<tr>
+		<td>School:</td>
+		<td>University of Michigan</td>
+	</tr><tr>
+		<td>Degree:</td>
+		<td>BS Computer Science Engineering</td>
+	</tr><tr>
+		<td>Graduation:</td>
+		<td>May 2016</td>
+	</tr><tr>
+		<td>GPA:</td>
+		<td>3.9/4.0</td>
+	</tr>
+</table>
+<h2>Classes Completed</h2>
+<table class='paddedtable'>
+	<tr>
+		<td style="width: 25%;">EECS 280</td>
+		<td>Programming Data Structures</td>
+	</tr><tr>
+		<td>EECS 281</td>
+		<td>Data Structures and Algorithms</td>
+	</tr><tr>
+		<td>ENGR 100</td>
+		<td>Microprocessors and Toys</td>
+	</tr><tr>
+		<td>EECS 203</td>
+		<td>Discrete Mathematics</td>
+	</tr><tr>
+		<td>EECS 270</td>
+		<td>Digital Logic Design</td>
+	</tr><tr>
+		<td>EECS 370</td>
+		<td>Computer Architecture</td>
+	</tr><tr>
+		<td>EECS 215</td>
+		<td>Electronic Circuits</td>
+	</tr>
+</table>
+<h2>Classes Enrolled</h2>
+<table class="paddedtable">
+	<tr>
+		<td style="width: 25%;">EECS 492</td>
+		<td>Artificial Intelligence</td>
+	</tr><tr>
+		<td>EECS 482</td>
+		<td>Web Databases and Information Systems</td>
+	</tr><tr>
+		<td>STATS 250</td>
+		<td>Statistics</td>
+	</tr>
+</table>
+<br><br>
+</div>
+<div class="contentsBlue" id="Skills">
+<br>
+<h2>Skills</h2>
+<div class="skillsHolder" style="width: 70%; margin: 0 auto; display: block;">
+	<div class="customProgressBar" barTitle="C++/C" val="75">C++/C<br><progress value="25" max="100"></progress></div>
+	<div class="customProgressBar" barTitle="HTML5/CSS3" val="70">HTML5/CSS3<br><progress value="25" max="100"></progress></div>
+	<div class="customProgressBar" barTitle="Javascript" val="60">Javascript<br><progress value="25" max="100"></progress></div>
+	<div class="customProgressBar" barTitle="PHP" val="50">PHP<br><progress value="25" max="100"></progress></div>
+	<div class="customProgressBar" barTitle="Python" val="30">Python<br><progress value="25" max="100"></progress></div>
+	<div class="customProgressBar" barTitle="SQL" val="25">SQL<br><progress value="25" max="100"></progress></div>
+</div>
+<h2>Libraries</h2>
+<div class="skillsHolder" style="width: 70%; margin: 0 auto; display: block;">
+	<div><img src="images/jQuery.png" style="max-width: 200px;" alt="jQuery"></div>
+	<div><img src="images/highcharts-logo.jpg" style="max-width: 200px;" alt="HighCharts"></div>
+	<div><img src="images/Smarty-logo.png" style="max-width: 200px;" alt="Smarty"></div>
+	<div><img src="images/qt.jpg" style="max-height: 50px;" alt="Qt"></div>
+</div>
+<br><br>
+</div>
+<div class="contentsOffwhite" id="Experience">
+<br>
+<h2>Experience</h2>
+	<div id="viasatContainer" class="pcContainer">
+		<div class="pcHeader">Viasat - Software Engineering Intern</div>
+		<div id="viasatPic" class="pcPic"><img src="images/viasatLogo.jpg" style="max-width: 90%"></div>
+		<div id="viasatExplanation" class="pcText">
+			<p>
+			I worked with the engineering team for Exede, a satellite internet provider, in a group of two to help develop an internal web-based tool
+			for use by customer service agents.  We worked in php, python, and javascript to retrieve, process, and present useful
+			information for customer service agents.  Through multiple presentations, I significantly enhanced my public speaking
+			skills in addition to my programming skills.
+			</p>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div id="maavcontainer" class="pcContainer">
+		<div class="pcHeader">MAAV - Embedded Systems Team Member</div>
+		<div id="maavPic" class="pcPicLeft"><img src="images/MAAV.jpg" style="max-width: 90%;"></div>
+		<div id="maavexplanation" class="pcTextRight">
+			<p>
+			With MAAV I worked on our quadrotor helicopter's controls by
+			implementing PID algorithms in C, tuning the vehicle, and testing new sensors.
+			In my first year (2013), the team took first place in the International Aerial Robotics Competition.
+			</p>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+<br/><br/>
+</div>
+<div class='contentsBlue' id="Projects">
+<br>
+<h2>Projects</h2>
+	<h3>Tornado.js</h3>
+	<p>Tornado.js is a jQuery plugin in development that can be used to spawn a tornado that
+		roams the page spinning pictures and other elements on the page.  Options to add 
+		stick figures trapped in the tornado and lightning that strikes across the page
+		are available to add flair.  
+		<a href="https://github.com/leiboldm/Tornado.js">View the Code</a>
+	</p>
+	<div style="width: 100%;">
+		<button notornado="true" id="tornadoButton" class="button" style="width: 200px; height: 30px; margin: 0 auto; display: block;">Click here to see it in action</button>
+		<button notornado="true" id="lightningButton" class="button" style="height: 30px; width: 100px; position: fixed; display: none;
+		 left: 50%; top: 40px; margin-left: -50px;">Add lightning</button>
+	</div>
+	<br>
+	<h3>Flash Flood</h3>
+	<p>Flash Flood is a derivation of the addictive iPhone game Flood It.
+	   Flash Flood is currently in development with the goal of publishing it to
+	   the Android and iOS markets.  It is being programmed entirely in C++ using
+	   the Qt framework.  Below you will find a video demo of the single player
+	   mode. The code for this game can be found in 
+	   <a href='https://github.com/BlackCupid/leiboldm/tree/master/myRepo/FloodEm'>
+	   	my github repository.</a>
+	<br><br>
+	<iframe src="http://www.youtube.com/embed/VO4eqHg-3Bs" class="vid"
+	        frameborder="0" allowfullscreen></iframe>
+	</p>
+	<br/><br/>
+</div>
+<div class="contentsOffwhite" id="Resume">
+	<br>
+	<h2>Resume</h2>
+	<p>
+		<a href="MatthewLeiboldResume.pdf"><img src="images/resumeLogo.png" style="height: 30px;">
+		Click here </a> to download a copy of my resume
+	</p>
+	<br><br>
+</div>
+<div class="contentsBlue" id="Contact">
+	<br>
+	<h2>Contact</h2>
+	<table style="width:100%;" align="center">
+		<tr class='regtr'>
+			<td class='regLtd'>Email</td>
+			<td class='regRtd'>leiboldm @ umich.edu</td>
+		</tr><tr class='regtr'>
+			<td class='regLtd'>Phone</td>
+			<td class='regRtd'>720-648-3346</td>
+		</tr><tr class='regtr'>
+			<td class='regLtd'>Address<br></td>
+			<td class='regRtd'>4021 S Dexter St<br>Englewood, CO 80113</td>
+		</tr>
+	</table>
+	<br><br>
+</div>
+<script type="text/javascript" src="../tornado.js"></script>
+<script type="text/javascript" src="../tornadoDestruction.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="js/bind-polyfill.min.js"></script>
+<script type="text/javascript" src="js/smooth-scroll.min.js"></script>
+<script>
+	smoothScroll.init({
+		speed: 1000,
+		easing: "easeOutQuint",
+		updateURL: true
+	});
+	var twister = null;
+	var lightning = null;
+	$('#tornadoButton').click(function() {startTornado();});
+	$('#lightningButton').click(function() {startLightning();});
+	function startTornado() {
+		setTimeout(function() {
+			twister = spawnTornado();
+		}, 300);
+		smoothScrollTo(0);
+		$('#lightningButton').show();
+		$('#tornadoButton').text("Stop the Madness").unbind('click').click(function() {
+			endTornado();
+		}).css("position", "fixed").css("top", "10px").css("left", "50%").css('margin-left', "-100px");
+	}
+	function endTornado() {
+		twister.stop();
+		if (lightning) {
+			lightning.stop();
+			lightning = null;
+		}
+		smoothScrollTo("Projects");
+		$('#tornadoButton').text("Click here to see it in action").unbind('click').click(function() {
+			startTornado();
+		}).css("position", "relative").css("top", "0px").css("left", "0px").css('margin', "0 auto");
+		$('#lightningButton').hide();
+	}
+	function startLightning() {
+		if (lightning == null) lightning = lightningStorm(2000);
+		//$('#lightningButton').hide();
+	}
+	function smoothScrollTo(id) {
+		// doesn't work in some browsers (IE), using smoothScroll library instead
+		var top = 0;
+		if (typeof id == "string") {
+			top = findPos(document.getElementById(id))[1];
+			var curr = window.scrollY || document.documentElement.scrollTop;
+			if (top == document.getElementById(id).offsetTop && curr!= 0) { 
+				//findPos returns absolute position in IE, but relative position in every other browser
+				console.log("IE absolute positioning detected");
+				setTimeout(function() {scrollA(top, curr);}, 30);
+			} setTimeout(function() {scrollR(top);}, 30);
+		} else if (typeof id == 'number') {
+			top = id;
+			var curr = window.scrollY || document.documentElement.scrollTop || window.screenY || window.screenTop;
+			console.log("top, curr ", top, curr);
+			setTimeout(function() {scrollA(top, curr);}, 30);
+		} else throw "invalid parameter entered for function smoothScrollTo";
+		function scrollR(top){
+			if (Math.abs(top) <= 2) {
+				window.scrollBy(0, top);
+				return;
+			}
+			var dy = Math.round(top / 5);
+			window.scrollBy(0, dy);
+			top -= dy;
+			setTimeout(function() {scrollR(top);}, 30);
+		}
+		function scrollA(top, curr) {
+			if (Math.abs(top - curr) <= 2) {
+				window.scrollBy(0, top - curr);
+				return;
+			}
+			var dy = Math.round((top - curr) / 5);
+			console.log("top, curr, dy", top, curr, dy);
+			window.scrollBy(0, dy);
+			curr = window.scrollY || document.documentElement.scrollTop;
+			setTimeout(function() {scrollA(top, curr);}, 30);
+		}
+	}
+	window.onscroll = function() { // pin the navigation menu to the top of the page
+		var h = document.getElementById("header");
+		var nav = document.getElementById('navbar');
+		var headerHeight = h.height || h.offsetHeight;
+		var windowScroll = window.scrollY || document.documentElement.scrollTop;
+		if (windowScroll > headerHeight) {
+			nav.style.top = "0px";
+		} else {
+			nav.style.top = (headerHeight - windowScroll) + "px";
+		}
+	};
+	$(document).ready(function() { // use highcharts to draw the circles for the skills section
+		var progressCircles = document.getElementsByClassName("customProgressBar");
+		console.log(progressCircles);
+		for (var i = 0; i < progressCircles.length; i++) {
+			var div = progressCircles[i];
+			div.id = "progressCircle" + i;
+			var a = Number(div.attributes.val.value);
+			var b = div.id;
+			var c = div.attributes.barTitle.value;
+			drawProgressCircle(a, 100, b, c);
+		}
+
+		setTimeout(function() {
+			var title = document.getElementById('title');
+			var titleText = title.innerHTML;
+			title.innerHTML = "";
+			for (var i = 0; i < titleText.length; i++) {
+				(function() {
+					var letter = document.createElement("span");
+					letter.innerHTML = titleText[i];
+					title.appendChild(letter);
+					var opacity = 0.1, endOpacity = 1;
+					setTimeout(function() {
+						var interval = setInterval(function() {
+							if (opacity >= endOpacity) {
+								clearInterval(interval);
+								return;
+							}
+							letter.style.opacity = opacity;
+							opacity += 0.1;
+						}, 30);
+					}, 50 * i);
+				})();
+			}
+		}, 1000);
+
+		function drawProgressCircle(val, max, container, title) {
+			var div = document.getElementById(container).innerHTML = ""; // erase old progress bar
+			var remainder = max - val;
+			var red = [255, 0, 0];
+			var yellow = [200, 200, 0];
+			var green = [0, 255, 0];
+			var pct = val / max;
+			var color = [0, 0, 0];
+			if (pct == 0) color = red;
+			if (pct < 0.5) {
+				var ratio = pct / 0.5;
+				for (var i = 0; i < 3; i++) {
+					color[i] = Math.round(ratio * (yellow[i] - red[i]) + red[i]);
+				}
+			} else if (pct == 0.5) {
+				color = yellow;
+			} else {
+				var ratio = (pct - 0.5) / 0.5;
+				for (var i = 0; i < 3; i++) {
+					color[i] = Math.round(ratio * (green[i] - yellow[i]) + yellow[i]);
+				}
+			}
+			var color = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 1)';
+			console.log("color: ", color);
+		    $('#' + container).highcharts({
+		    	credits: {
+		    		enabled: false
+		    	},
+		        chart: {
+		            type: 'pie',
+		            height: 200,
+		            width: 200,
+		            backgroundColor:'rgba(240, 240, 240, 0.1)'
+		        },
+		        title: {
+		            text: title
+		        },
+		        plotOptions: {
+		            pie: {
+		                shadow: false,
+		                center: ['50%', '40%'],
+		                borderColor: 'rgba(170, 170, 219, 0.1)'
+		            },
+		            series: {
+		            	dataLabels: {
+		            		enabled: false
+		            	},
+	                	animation: {
+	                		duration: 2000
+	                	}
+		            }
+		        },
+		        colors: [color, '#FFF'],
+		        series: [{
+		            type: "pie",
+		            name: title,
+		            data: [["What I know", val],["What's left to learn", max - val]],
+		            size: '120%',
+		            innerSize: '115%'
+		        }],
+		        tooltip: {
+		        	formatter: function() {
+		        		return this.series.name + "<br>" + this.point.name;
+		        	}
+		        }
+		    });
+		}
+	});
+</script>
+</body>
+</html>

@@ -87,10 +87,8 @@ var Lightning = function(options) {
           " left: " + x1 + "px; top: " + (y1 - len) + "px; transform: rotate(" + deg + "deg);'>" +
                 "<div style='width: 100%; height: 50%;'/>" + 
                 "<div style='width: 100%; height: 50%; background-color: " + color + "; border: 1px solid " + color + 
-                "; border-radius: 2px;'/>" +
+                "; border-radius: 2px; z-index: 100;'/>" +
           "</div>").appendTo(holder);
-        var elt = holder.appendChild("div");
-
     }
 
     return lightning;
@@ -292,6 +290,7 @@ var Tornado = function(options) {
     tornado.remove = function() {
         tornado.stopAnimation();
         holder.remove();
+        console.log('removing tornado');
     };
     return tornado;
 };
