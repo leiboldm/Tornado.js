@@ -294,7 +294,7 @@
 	};
 	$(document).ready(function() { // use highcharts to draw the circles for the skills section
 		var progressCircles = document.getElementsByClassName("customProgressBar");
-		console.log(progressCircles);
+		//console.log(progressCircles);
 		for (var i = 0; i < progressCircles.length; i++) {
 			var div = progressCircles[i];
 			div.id = "progressCircle" + i;
@@ -351,7 +351,7 @@
 				}
 			}
 			var color = 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', 1)';
-			console.log("color: ", color);
+			//console.log("color: ", color);
 		    $('#' + container).highcharts({
 		    	credits: {
 		    		enabled: false

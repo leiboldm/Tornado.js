@@ -389,3 +389,122 @@ var Person = function(options) {
     };
     return person;
 };
+
+var rainColor = "#08F";
+function makeItRain(options) {
+    options = options || {};
+    var frequency = options.frequency || 200; // in drops per second
+    frequency = Math.round(1 / frequency * 1000);
+    var dropSize = options.dropSize || 10;
+    var parentElt = options.parentElement || document.body;
+    var rain = {};
+    var rot_c = 0;
+    var mt = mouseTracker();
+    var mouse_x = mt.getMouseX();
+    var int1 =  setInterval(function() {
+        var x = Math.round(Math.random() * window.innerWidth);
+        var rot = (parentElt.offsetWidth / 2 - mt.getMouseX()) * 60 / parentElt.offsetWidth;
+        //var rot = Math.round(30 * Math.sin(rot_c * .01));
+        rot_c++;
+        makeRainDrop(x, dropSize, rot, parentElt);
+    }, frequency);
+    rain.stop = function () {
+        clearInterval(int1);
+    }
+    return rain;
+}
+
+// Detect if the browser is IE or not.
+// If it is not IE, we assume that the browser is NS.
+function mouseTracker() {
+    var IE = document.all?true:false;
+    if (!IE) document.captureEvents(Event.MOUSEMOVE);
+    document.onmousemove = getMouseXY;
+    var tempX = 0;
+    var tempY = 0;
+    function getMouseXY(e) {
+      if (IE) { // grab the x-y pos.s if browser is IE
+        tempX = event.clientX + document.body.scrollLeft;
+        tempY = event.clientY + document.body.scrollTop;
+      } else {  // grab the x-y pos.s if browser is NS
+        tempX = e.pageX;
+        tempY = e.pageY;
+      }  
+      if (tempX < 0){tempX = 0}
+      if (tempY < 0){tempY = 0}  
+      return true;
+    }
+    var mt = {};
+    mt.getMouseX = function() {
+        return tempX;
+    }
+    mt.getMouseY = function() {
+        return tempY;
+    }
+    return mt;
+}
+
+function makeRainDrop(x_pos, size, rotation, parentElt) {
+    var drop_length = Math.round(Math.random()*size + size);
+    var drop = document.createElement("div");
+    drop.style.height = drop_length + "px";
+    drop.style.width = "0px";
+    drop.style.border = "2px solid " + rainColor;
+    drop.style.borderRadius = "50%";
+    drop.style.backgroundColor = rainColor;
+    drop.style.position = "fixed";
+    drop.style.left = x_pos.toString() + "px";
+    drop.style.transform = "rotate(" + rotation + "deg)";
+    parentElt.appendChild(drop);
+    var top = 0;
+    var left = x_pos;
+    var interval = null;
+    var dy = 20;
+    var dx = 0 - Math.round(Math.tan(rotation*6.28/360) * dy);
+    interval = setInterval(function() {
+        if (top > window.innerHeight) {
+            clearInterval(interval);
+            parentElt.removeChild(drop);
+            //splashDrop(window.innerHeight, left);
+        }
+        moveDrop(drop, top, left, dy, dx);
+        top += dy;
+        left += dx;
+    }, 60);
+    return drop;
+}
+
+function splashDrop(left, top, parentElt) {
+    var partCount = 5;
+    for (var i = 0; i < partCount; i++) {
+        var p = document.createElement('div');
+        p.style.height = "0px";
+        p.style.width = "0px";
+        p.style.border = "1px solid " + rainColor;
+        p.style.borderRadius = "50%";
+        p.style.position = "fixed";
+        p.style.left = left + "px";
+        p.style.top = top + "px";
+        parentElt.appendChild(p);
+        var dropLeft = left;
+        var dropTop = top;
+        var dx = Math.round(Math.random() * 10 - 5);
+        var dy = Math.round(Math.random() * -5 - 5);
+        var interval = setInterval(function(){
+            if (dropTop > window.innerHeight) {
+                p.parentNode.removeChild(p);
+                clearInterval(interval);
+                return;
+            }
+            moveDrop(p, dropTop, dropLeft, dy, dx);
+            dropTop += dy;
+            dropLeft += dx;
+            dy += 1;
+        }, 30);
+    }
+}
+
+function moveDrop(mydrop, mytop, myleft, dy, dx) {
+    mydrop.style.top = (mytop + dy) + "px";
+    mydrop.style.left = (myleft + dx) + "px";
+}
