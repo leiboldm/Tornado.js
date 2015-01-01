@@ -393,10 +393,11 @@ var Person = function(options) {
 var rainColor = "#08F";
 function makeItRain(options) {
     options = options || {};
-    var frequency = options.frequency || 200; // in drops per second
+    var frequency = options.frequency || 20; // in drops per second
     frequency = Math.round(1 / frequency * 1000);
-    var dropSize = options.dropSize || 10;
+    var dropSize = options.dropSize || 30;
     var parentElt = options.parentElement || document.body;
+    var splash = options.splash || true;
     var rain = {};
     var rot_c = 0;
     var mt = mouseTracker();
@@ -404,9 +405,8 @@ function makeItRain(options) {
     var int1 =  setInterval(function() {
         var x = Math.round(Math.random() * window.innerWidth);
         var rot = (parentElt.offsetWidth / 2 - mt.getMouseX()) * 60 / parentElt.offsetWidth;
-        //var rot = Math.round(30 * Math.sin(rot_c * .01));
         rot_c++;
-        makeRainDrop(x, dropSize, rot, parentElt);
+        makeRainDrop(x, dropSize, rot, parentElt, splash);
     }, frequency);
     rain.stop = function () {
         clearInterval(int1);
@@ -444,7 +444,7 @@ function mouseTracker() {
     return mt;
 }
 
-function makeRainDrop(x_pos, size, rotation, parentElt) {
+function makeRainDrop(x_pos, size, rotation, parentElt, splash) {
     var drop_length = Math.round(Math.random()*size + size);
     var drop = document.createElement("div");
     drop.style.height = drop_length + "px";
@@ -455,17 +455,19 @@ function makeRainDrop(x_pos, size, rotation, parentElt) {
     drop.style.position = "fixed";
     drop.style.left = x_pos.toString() + "px";
     drop.style.transform = "rotate(" + rotation + "deg)";
+    drop.style.top = "0px";
+    drop.style.opacity = "0.5";
     parentElt.appendChild(drop);
     var top = 0;
     var left = x_pos;
     var interval = null;
-    var dy = 20;
+    var dy = Math.random() * 10 + 25;
     var dx = 0 - Math.round(Math.tan(rotation*6.28/360) * dy);
     interval = setInterval(function() {
-        if (top > window.innerHeight) {
+        if (top > parentElt.innerHeight || top > window.innerHeight) {
             clearInterval(interval);
             parentElt.removeChild(drop);
-            //splashDrop(window.innerHeight, left);
+            if (splash) splashDrop(left, window.innerHeight, parentElt);
         }
         moveDrop(drop, top, left, dy, dx);
         top += dy;
@@ -476,31 +478,43 @@ function makeRainDrop(x_pos, size, rotation, parentElt) {
 
 function splashDrop(left, top, parentElt) {
     var partCount = 5;
-    for (var i = 0; i < partCount; i++) {
-        var p = document.createElement('div');
-        p.style.height = "0px";
-        p.style.width = "0px";
-        p.style.border = "1px solid " + rainColor;
-        p.style.borderRadius = "50%";
-        p.style.position = "fixed";
-        p.style.left = left + "px";
-        p.style.top = top + "px";
-        parentElt.appendChild(p);
-        var dropLeft = left;
-        var dropTop = top;
-        var dx = Math.round(Math.random() * 10 - 5);
-        var dy = Math.round(Math.random() * -5 - 5);
-        var interval = setInterval(function(){
-            if (dropTop > window.innerHeight) {
-                p.parentNode.removeChild(p);
-                clearInterval(interval);
-                return;
-            }
-            moveDrop(p, dropTop, dropLeft, dy, dx);
-            dropTop += dy;
-            dropLeft += dx;
-            dy += 1;
-        }, 30);
+    for (var i = 0; i < 5; i++) {
+        (function() { // self-invoking function to work around weird javascript scoping
+            var p = document.createElement('div');
+            p.style.height = "0px";
+            p.style.width = "0px";
+            p.style.border = "3px solid " + rainColor;
+            p.style.borderRadius = "50%";
+            p.style.position = "fixed";
+            p.style.left = left + "px";
+            p.style.top = top + "px";
+            p.style.opacity = "0.1";
+            parentElt.appendChild(p);
+            /* code to visualize where splash drop is starting from
+            var cross = document.createElement("div");
+            cross.style.height="10px";
+            cross.style.width="10px";
+            cross.style.backgroundColor = "#F00";
+            cross.style.position = "fixed";
+            cross.style.left = left + "px";
+            cross.style.top = top + "px";
+            parentElt.appendChild(cross); */
+            var dropLeft = left;
+            var dropTop = top;
+            var dx = Math.round(Math.random() * 10 - 5);
+            var dy = Math.round(Math.random() * -5 - 5);
+            var interval = setInterval(function(){
+                if (dropTop > window.innerHeight) {
+                    p.parentNode.removeChild(p);
+                    clearInterval(interval);
+                    return;
+                }
+                moveDrop(p, dropTop, dropLeft, dy, dx);
+                dropTop += dy;
+                dropLeft += dx;
+                dy += 1;
+            }, 30);
+        })();
     }
 }
 
