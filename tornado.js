@@ -393,25 +393,125 @@ var Person = function(options) {
 var rainColor = "#08F";
 function makeItRain(options) {
     options = options || {};
-    var frequency = options.frequency || 20; // in drops per second
-    frequency = Math.round(1 / frequency * 1000);
-    var dropSize = options.dropSize || 30;
-    var parentElt = options.parentElement || document.body;
-    var splash = options.splash || true;
+    options.frequency = options.frequency || 20; // in drops per second
+    options.frequency = Math.round(1 / options.frequency * 1000);
+    options.dropSize = options.dropSize || 30;
+    if (options.hasOwnProperty('parentElement')) {
+        options.parentElt = options.parentElement;
+        var rainHolder = document.createElement("div");
+        rainHolder.style.overflow = "hidden";
+        rainHolder.style.width = "100%";
+        rainHolder.style.height = "100%";
+        rainHolder.style.position = "absolute";
+        rainHolder.style.top = "0px";
+        if (options.parentElt instanceof jQuery) options.parentElt = options.parentElt.get(0);
+        options.parentElt.appendChild(rainHolder);
+        options.parentElt = rainHolder;
+        options.position = "absolute";
+    } else {
+        options.parentElt = document.body;
+        options.position = "fixed";
+    }
+    // convert to jquery object to find overflowX value
+    if (!(options.parentElt instanceof jQuery)) options.parentElt = $( options.parentElt );
+    // should have some advanced option to disable this if necessary
+    if (options.parentElt.css("overflowX") != "scroll") options.parentElt.css("overflowX", "hidden"); 
+    options.parentElt = options.parentElt.get(0);
+    options.splash = (options.hasOwnProperty('splash')) ? options.splash : true;
     var rain = {};
     var rot_c = 0;
     var mt = mouseTracker();
     var mouse_x = mt.getMouseX();
     var int1 =  setInterval(function() {
         var x = Math.round(Math.random() * window.innerWidth);
-        var rot = (parentElt.offsetWidth / 2 - mt.getMouseX()) * 60 / parentElt.offsetWidth;
+        var rot = (options.parentElt.offsetWidth / 2 - mt.getMouseX()) * 60 / options.parentElt.offsetWidth;
         rot_c++;
-        makeRainDrop(x, dropSize, rot, parentElt, splash);
-    }, frequency);
+        makeRainDrop(x, rot, options);
+    }, options.frequency);
     rain.stop = function () {
         clearInterval(int1);
     }
     return rain;
+}
+
+function makeRainDrop(x_pos, rotation, options) {
+    var drop_length = Math.round(Math.random()*options.dropSize + options.dropSize);
+    var drop = document.createElement("div");
+    drop.style.height = drop_length + "px";
+    drop.style.width = "0px";
+    drop.style.border = "2px solid " + rainColor;
+    drop.style.borderRadius = "50%";
+    drop.style.backgroundColor = rainColor;
+    drop.style.position = options.position;
+    drop.style.left = x_pos.toString() + "px";
+    drop.style.transform = "rotate(" + rotation + "deg)";
+    drop.style.top = "0px";
+    drop.style.opacity = "0.5";
+    options.parentElt.appendChild(drop);
+    var top = 0;
+    var left = x_pos;
+    var interval = null;
+    var dy = Math.random() * 10 + 25;
+    var dx = 0 - Math.round(Math.tan(rotation*6.28/360) * dy);
+    interval = setInterval(function() {
+        if (top > options.parentElt.innerHeight || top > window.innerHeight) {
+            clearInterval(interval);
+            options.parentElt.removeChild(drop);
+            var splashTop = (options.position == "fixed") ? window.innerHeight : $( options.parentElt ).innerHeight();
+            if (options.splash) splashDrop(left, splashTop, options.parentElt, options.position);
+        }
+        moveDrop(drop, top, left, dy, dx);
+        top += dy;
+        left += dx;
+    }, 60);
+    return drop;
+}
+
+function splashDrop(left, top, parentElt, position) {
+    var partCount = 5;
+    for (var i = 0; i < 5; i++) {
+        (function() { // self-invoking function to work around weird javascript scoping
+            var p = document.createElement('div');
+            p.style.height = "0px";
+            p.style.width = "0px";
+            p.style.border = "3px solid " + rainColor;
+            p.style.borderRadius = "50%";
+            p.style.position = position;
+            p.style.left = left + "px";
+            p.style.top = top + "px";
+            p.style.opacity = "0.1";
+            parentElt.appendChild(p);
+            /*// code to visualize where splash drop is starting from
+            var cross = document.createElement("div");
+            cross.style.height="10px";
+            cross.style.width="10px";
+            cross.style.backgroundColor = "#F00";
+            cross.style.position = "fixed";
+            cross.style.left = left + "px";
+            cross.style.top = top + "px";
+            parentElt.appendChild(cross);*/
+            var dropLeft = left;
+            var dropTop = top;
+            var dx = Math.round(Math.random() * 10 - 5);
+            var dy = Math.round(Math.random() * -5 - 5);
+            var interval = setInterval(function(){
+                if (dropTop > window.innerHeight) {
+                    p.parentNode.removeChild(p);
+                    clearInterval(interval);
+                    return;
+                }
+                moveDrop(p, dropTop, dropLeft, dy, dx);
+                dropTop += dy;
+                dropLeft += dx;
+                dy += 1;
+            }, 30);
+        })();
+    }
+}
+
+function moveDrop(mydrop, mytop, myleft, dy, dx) {
+    mydrop.style.top = (mytop + dy) + "px";
+    mydrop.style.left = (myleft + dx) + "px";
 }
 
 // Detect if the browser is IE or not.
@@ -442,83 +542,4 @@ function mouseTracker() {
         return tempY;
     }
     return mt;
-}
-
-function makeRainDrop(x_pos, size, rotation, parentElt, splash) {
-    var drop_length = Math.round(Math.random()*size + size);
-    var drop = document.createElement("div");
-    drop.style.height = drop_length + "px";
-    drop.style.width = "0px";
-    drop.style.border = "2px solid " + rainColor;
-    drop.style.borderRadius = "50%";
-    drop.style.backgroundColor = rainColor;
-    drop.style.position = "fixed";
-    drop.style.left = x_pos.toString() + "px";
-    drop.style.transform = "rotate(" + rotation + "deg)";
-    drop.style.top = "0px";
-    drop.style.opacity = "0.5";
-    parentElt.appendChild(drop);
-    var top = 0;
-    var left = x_pos;
-    var interval = null;
-    var dy = Math.random() * 10 + 25;
-    var dx = 0 - Math.round(Math.tan(rotation*6.28/360) * dy);
-    interval = setInterval(function() {
-        if (top > parentElt.innerHeight || top > window.innerHeight) {
-            clearInterval(interval);
-            parentElt.removeChild(drop);
-            if (splash) splashDrop(left, window.innerHeight, parentElt);
-        }
-        moveDrop(drop, top, left, dy, dx);
-        top += dy;
-        left += dx;
-    }, 60);
-    return drop;
-}
-
-function splashDrop(left, top, parentElt) {
-    var partCount = 5;
-    for (var i = 0; i < 5; i++) {
-        (function() { // self-invoking function to work around weird javascript scoping
-            var p = document.createElement('div');
-            p.style.height = "0px";
-            p.style.width = "0px";
-            p.style.border = "3px solid " + rainColor;
-            p.style.borderRadius = "50%";
-            p.style.position = "fixed";
-            p.style.left = left + "px";
-            p.style.top = top + "px";
-            p.style.opacity = "0.1";
-            parentElt.appendChild(p);
-            /* code to visualize where splash drop is starting from
-            var cross = document.createElement("div");
-            cross.style.height="10px";
-            cross.style.width="10px";
-            cross.style.backgroundColor = "#F00";
-            cross.style.position = "fixed";
-            cross.style.left = left + "px";
-            cross.style.top = top + "px";
-            parentElt.appendChild(cross); */
-            var dropLeft = left;
-            var dropTop = top;
-            var dx = Math.round(Math.random() * 10 - 5);
-            var dy = Math.round(Math.random() * -5 - 5);
-            var interval = setInterval(function(){
-                if (dropTop > window.innerHeight) {
-                    p.parentNode.removeChild(p);
-                    clearInterval(interval);
-                    return;
-                }
-                moveDrop(p, dropTop, dropLeft, dy, dx);
-                dropTop += dy;
-                dropLeft += dx;
-                dy += 1;
-            }, 30);
-        })();
-    }
-}
-
-function moveDrop(mydrop, mytop, myleft, dy, dx) {
-    mydrop.style.top = (mytop + dy) + "px";
-    mydrop.style.left = (myleft + dx) + "px";
 }

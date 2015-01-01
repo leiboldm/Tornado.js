@@ -9,3 +9,5 @@ Tornado and Person should inherit from same base object
 Add functionality to append tornado to any element on page  enhancement
 
 Tornado is slow when page contains many elements - create pruning function
+
+Check options default values to make sure false values aren't getting overwritten
