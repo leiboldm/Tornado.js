@@ -393,9 +393,14 @@ var Person = function(options) {
 var rainColor = "#08F";
 function makeItRain(options) {
     options = options || {};
-    options.frequency = options.frequency || 20; // in drops per second
-    options.frequency = Math.round(1 / options.frequency * 1000);
-    options.dropSize = options.dropSize || 30;
+    options.frequency = Number(options.frequency) || 20; // units: drops per second
+    options.frequency = Math.round(1 / options.frequency * 1000); // convert to milliseconds / drop
+    options.updateRate = Number(options.updateRate) || 20; // units: updates per second
+    options.updateRate = Math.round(1 / options.updateRate * 1000); // convert to milliseconds / frame
+    options.dropSize = Number(options.dropSize) || 30; // units: pixels
+    options.dropSpeed = Number(options.dropSpeed) || 200; // units: pixels per second
+    options.dropSpeed = Math.round(options.dropSpeed * options.updateRate / 1000); // convert to pixels per frame
+    console.log(options);
     if (options.hasOwnProperty('parentElement')) {
         options.parentElt = options.parentElement;
         var rainHolder = document.createElement("div");
@@ -435,7 +440,8 @@ function makeItRain(options) {
 }
 
 function makeRainDrop(x_pos, rotation, options) {
-    var drop_length = Math.round(Math.random()*options.dropSize + options.dropSize);
+    var drop_length = Math.round(Math.random() * options.dropSize + options.dropSize);
+    //console.log(options.dropSize, drop_length);
     var drop = document.createElement("div");
     drop.style.height = drop_length + "px";
     drop.style.width = "0px";
@@ -451,23 +457,23 @@ function makeRainDrop(x_pos, rotation, options) {
     var top = 0;
     var left = x_pos;
     var interval = null;
-    var dy = Math.random() * 10 + 25;
+    var dy = options.dropSpeed;
     var dx = 0 - Math.round(Math.tan(rotation*6.28/360) * dy);
     interval = setInterval(function() {
         if (top > options.parentElt.innerHeight || top > window.innerHeight) {
             clearInterval(interval);
             options.parentElt.removeChild(drop);
             var splashTop = (options.position == "fixed") ? window.innerHeight : $( options.parentElt ).innerHeight();
-            if (options.splash) splashDrop(left, splashTop, options.parentElt, options.position);
+            if (options.splash) splashDrop(left, splashTop, options.parentElt, options.position, options.updateRate);
         }
         moveDrop(drop, top, left, dy, dx);
         top += dy;
         left += dx;
-    }, 60);
+    }, options.updateRate);
     return drop;
 }
 
-function splashDrop(left, top, parentElt, position) {
+function splashDrop(left, top, parentElt, position, updateRate) {
     var partCount = 5;
     for (var i = 0; i < 5; i++) {
         (function() { // self-invoking function to work around weird javascript scoping
@@ -504,7 +510,7 @@ function splashDrop(left, top, parentElt, position) {
                 dropTop += dy;
                 dropLeft += dx;
                 dy += 1;
-            }, 30);
+            }, updateRate);
         })();
     }
 }

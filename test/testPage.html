@@ -11,20 +11,46 @@
 </head>
 <body>
 <header class="header contentsOffwhite" style="width: 100%; padding-bottom: 10px" id="header">
+	<label>Rain Frequency (drops/sec): </label><input type="number" id="freq" value="10" style="width: 50px;">
+	<label>Raindrop Size (px): </label><input type="number" id="dropsize" value="30" style="width: 50px;">
+	<label>Raindrop speed (px/sec): </label><input type="number" id="dropspeed" value="2000" style="width: 50px;">
+	<label>Update rate (frames/sec): </label><input type="number" id="updaterate" value="20" style="width: 50px;">
+	<label>Splash?:</label><input type="checkbox" id="splash">
+	<label>Only Test Div 1?:</label><input type="checkbox" id="rainloc">
+	<input type="submit" value="Test Rain" onclick="test_rain()">
+	<script>
+		var test_rain_obj = null;
+		function test_rain(e) {
+			if (test_rain_obj == null) {
+				var options = {};
+				options.frequency = $('#freq').val();
+				options.splash = $('#splash').prop('checked');
+				options.dropSize = $('#dropsize').val();
+				options.dropSpeed = $('#dropspeed').val();
+				options.updateRate = $('#updaterate').val();
+				console.log(options.dropSize);
+				if ($('#rainloc').prop('checked') == true) options.parentElement = $('#Aboutme');
+				test_rain_obj = makeItRain(options);
+			} else {
+				test_rain_obj.stop();
+				test_rain_obj = null;
+			}
+		}
+	</script>
 	<div id="title" class="titlename">Testing Page for Tornado.js</div>
 </header>
 <nav id="navbar">
 	<ul id="navtable">
-		<li class="menuLink"><a data-scroll href="#Aboutme">Bio</a>
-		<li class="menuLink"><a data-scroll href="#Contact">Contact</a>
-		<li class="menuLink"><a data-scroll href="#Classes">Education</a>
-		<li class="menuLink"><a data-scroll href="#Experience">Experience</a>
-		<li class="menuLink"><a data-scroll href="#Projects">Projects</a>
-		<li class="menuLink"><a data-scroll href="#Resume">Resume</a>
-		<li class="menuLink"><a data-scroll href="#Skills">Skills</a>
+		<li class="menuLink"><a data-scroll href="#Aboutme">Test</a>
+		<li class="menuLink"><a data-scroll href="#Contact">Test</a>
+		<li class="menuLink"><a data-scroll href="#Classes">Test</a>
+		<li class="menuLink"><a data-scroll href="#Experience">Test</a>
+		<li class="menuLink"><a data-scroll href="#Projects">Test</a>
+		<li class="menuLink"><a data-scroll href="#Resume">Test</a>
+		<li class="menuLink"><a data-scroll href="#Skills">Test</a>
 	</ul>
 </nav>
-<div class="contentsBlue" id="Aboutme">
+<div class="contentsBlue" id="Aboutme" style="border: 1px solid black">
 	<br>
 	<h2>Test Div 1</h2>
 	<div id="bioPic" class="pcPic"><img src="images/hkn_pic.jpg" style="height: 300px;"></div>
