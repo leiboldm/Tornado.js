@@ -398,7 +398,7 @@ function makeItRain(options) {
     options.updateRate = Number(options.updateRate) || 20; // units: updates per second
     options.updateRate = Math.round(1 / options.updateRate * 1000); // convert to milliseconds / frame
     options.dropSize = Number(options.dropSize) || 30; // units: pixels
-    options.dropSpeed = Number(options.dropSpeed) || 200; // units: pixels per second
+    options.dropSpeed = Number(options.dropSpeed) || 800; // units: pixels per second
     options.dropSpeed = Math.round(options.dropSpeed * options.updateRate / 1000); // convert to pixels per frame
     console.log(options);
     if (options.hasOwnProperty('parentElement')) {
@@ -464,7 +464,7 @@ function makeRainDrop(x_pos, rotation, options) {
             clearInterval(interval);
             options.parentElt.removeChild(drop);
             var splashTop = (options.position == "fixed") ? window.innerHeight : $( options.parentElt ).innerHeight();
-            if (options.splash) splashDrop(left, splashTop, options.parentElt, options.position, options.updateRate);
+            if (options.splash) splashDrop(left, splashTop, options);
         }
         moveDrop(drop, top, left, dy, dx);
         top += dy;
@@ -473,7 +473,7 @@ function makeRainDrop(x_pos, rotation, options) {
     return drop;
 }
 
-function splashDrop(left, top, parentElt, position, updateRate) {
+function splashDrop(left, top, options) {
     var partCount = 5;
     for (var i = 0; i < 5; i++) {
         (function() { // self-invoking function to work around weird javascript scoping
@@ -482,11 +482,11 @@ function splashDrop(left, top, parentElt, position, updateRate) {
             p.style.width = "0px";
             p.style.border = "3px solid " + rainColor;
             p.style.borderRadius = "50%";
-            p.style.position = position;
+            p.style.position = options.position;
             p.style.left = left + "px";
             p.style.top = top + "px";
             p.style.opacity = "0.1";
-            parentElt.appendChild(p);
+            options.parentElt.appendChild(p);
             /*// code to visualize where splash drop is starting from
             var cross = document.createElement("div");
             cross.style.height="10px";
@@ -495,10 +495,11 @@ function splashDrop(left, top, parentElt, position, updateRate) {
             cross.style.position = "fixed";
             cross.style.left = left + "px";
             cross.style.top = top + "px";
-            parentElt.appendChild(cross);*/
+            options.parentElt.appendChild(cross);*/
             var dropLeft = left;
             var dropTop = top;
-            var dx = Math.round(Math.random() * 10 - 5);
+            var speedNormFactor = 30;
+            var dx = Math.round(Math.random() * 10 - 5) * options.updateRate / speedNormFactor;
             var dy = Math.round(Math.random() * -5 - 5);
             var interval = setInterval(function(){
                 if (dropTop > window.innerHeight) {
@@ -507,10 +508,10 @@ function splashDrop(left, top, parentElt, position, updateRate) {
                     return;
                 }
                 moveDrop(p, dropTop, dropLeft, dy, dx);
-                dropTop += dy;
+                dropTop += (dy * options.updateRate / speedNormFactor);
                 dropLeft += dx;
-                dy += 1;
-            }, updateRate);
+                dy += (options.updateRate / speedNormFactor);
+            }, options.updateRate);
         })();
     }
 }
