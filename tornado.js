@@ -409,14 +409,19 @@ function makeItRain(options) {
     console.log(options);
     if (options.hasOwnProperty('parentElement')) {
         options.parentElt = options.parentElement;
+        if (!(options.parentElt instanceof jQuery)) options.parentElt = $(options.parentElt);
+        var relPosHolder = document.createElement("div");
+        relPosHolder.style.position = "relative";
+        relPosHolder.style.height = "0px";
+        relPosHolder.style.width = "0px";
+        options.parentElt.append(relPosHolder);
         var rainHolder = document.createElement("div");
         rainHolder.style.overflow = "hidden";
-        rainHolder.style.width = "100%";
-        rainHolder.style.height = "100%";
+        rainHolder.style.width = options.parentElt.width().toString() + "px";
+        rainHolder.style.height = options.parentElt.height().toString() + "px";
         rainHolder.style.position = "absolute";
-        rainHolder.style.top = "0px";
-        if (options.parentElt instanceof jQuery) options.parentElt = options.parentElt.get(0);
-        options.parentElt.appendChild(rainHolder);
+        rainHolder.style.bottom = "0px";
+        relPosHolder.appendChild(rainHolder);
         options.parentElt = rainHolder;
         options.position = "absolute";
     } else {
@@ -427,16 +432,19 @@ function makeItRain(options) {
     if (!(options.parentElt instanceof jQuery)) options.parentElt = $( options.parentElt );
     // should have some advanced option to disable this if necessary
     if (options.parentElt.css("overflowX") != "scroll") options.parentElt.css("overflowX", "hidden"); 
-    options.parentElt = options.parentElt.get(0);
     options.splash = (options.hasOwnProperty('splash')) ? options.splash : true;
     var rain = {};
-    var rot_c = 0;
     var mt = mouseTracker();
-    var mouse_x = mt.getMouseX();
     var int1 =  setInterval(function() {
-        var x = Math.round(Math.random() * window.innerWidth);
-        var rot = (options.parentElt.offsetWidth / 2 - mt.getMouseX()) * 60 / options.parentElt.offsetWidth;
-        rot_c++;
+        var mouse_x = mt.getMouseX();
+        var x = Math.round(Math.random() * options.parentElt.width());
+        var rot = 0;
+        if (mouse_x < options.parentElt.offset().left) rot = 30;
+        else if (mouse_x > options.parentElt.offset().left + options.parentElt.width()) rot = -30;
+        else {
+            rot = ((options.parentElt.width() + options.parentElt.offset().left) / 2 - mouse_x)
+                    * 60 / options.parentElt.width();
+        }
         makeRainDrop(x, rot, options);
     }, options.frequency);
     rain.stop = function () {
@@ -459,7 +467,7 @@ function makeRainDrop(x_pos, rotation, options) {
     drop.style.transform = "rotate(" + rotation + "deg)";
     drop.style.top = "0px";
     drop.style.opacity = "0.5";
-    options.parentElt.appendChild(drop);
+    options.parentElt.append(drop);
     var top = 0;
     var left = x_pos;
     var interval = null;
@@ -468,7 +476,7 @@ function makeRainDrop(x_pos, rotation, options) {
     interval = setInterval(function() {
         if (top > options.parentElt.innerHeight || top > window.innerHeight) {
             clearInterval(interval);
-            options.parentElt.removeChild(drop);
+            options.parentElt.get(0).removeChild(drop);
             var splashTop = (options.position == "fixed") ? window.innerHeight : $( options.parentElt ).innerHeight();
             if (options.splash) splashDrop(left, splashTop, options);
         }
@@ -492,7 +500,7 @@ function splashDrop(left, top, options) {
             p.style.left = left + "px";
             p.style.top = top + "px";
             p.style.opacity = "0.1";
-            options.parentElt.appendChild(p);
+            options.parentElt.append(p);
             /*// code to visualize where splash drop is starting from
             var cross = document.createElement("div");
             cross.style.height="10px";
@@ -501,7 +509,7 @@ function splashDrop(left, top, options) {
             cross.style.position = "fixed";
             cross.style.left = left + "px";
             cross.style.top = top + "px";
-            options.parentElt.appendChild(cross);*/
+            options.parentElt.append(cross);*/
             var dropLeft = left;
             var dropTop = top;
             var speedNormFactor = 30;
