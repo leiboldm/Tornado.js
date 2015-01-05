@@ -390,7 +390,7 @@ var Person = function(options) {
     return person;
 };
 
-var rainColor = "#08F";
+
 function makeItRain(options) {
     options = options || {};
     options.frequency = Number(options.frequency) || 20; // units: drops per second
@@ -398,6 +398,12 @@ function makeItRain(options) {
     options.updateRate = Number(options.updateRate) || 20; // units: updates per second
     options.updateRate = Math.round(1 / options.updateRate * 1000); // convert to milliseconds / frame
     options.dropSize = Number(options.dropSize) || 30; // units: pixels
+    options.rainColor = options.rainColor || "#08F";
+    if (options.rainColor.indexOf("#") !== 0 || 
+        !(options.rainColor.length == 4 || options.rainColor.length == 7)) {
+        if (window.console) console.log("Invalid rainColor");
+        return {};
+    }
     options.dropSpeed = Number(options.dropSpeed) || 800; // units: pixels per second
     options.dropSpeed = Math.round(options.dropSpeed * options.updateRate / 1000); // convert to pixels per frame
     console.log(options);
@@ -445,9 +451,9 @@ function makeRainDrop(x_pos, rotation, options) {
     var drop = document.createElement("div");
     drop.style.height = drop_length + "px";
     drop.style.width = "0px";
-    drop.style.border = "2px solid " + rainColor;
+    drop.style.border = "2px solid " + options.rainColor;
     drop.style.borderRadius = "50%";
-    drop.style.backgroundColor = rainColor;
+    drop.style.backgroundColor = options.rainColor;
     drop.style.position = options.position;
     drop.style.left = x_pos.toString() + "px";
     drop.style.transform = "rotate(" + rotation + "deg)";
@@ -480,7 +486,7 @@ function splashDrop(left, top, options) {
             var p = document.createElement('div');
             p.style.height = "0px";
             p.style.width = "0px";
-            p.style.border = "3px solid " + rainColor;
+            p.style.border = "3px solid " + options.rainColor;
             p.style.borderRadius = "50%";
             p.style.position = options.position;
             p.style.left = left + "px";
