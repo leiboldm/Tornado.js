@@ -407,10 +407,11 @@ function makeItRain(options) {
     options.dropSpeed = Number(options.dropSpeed) || 800; // units: pixels per second
     options.dropSpeed = Math.round(options.dropSpeed * options.updateRate / 1000); // convert to pixels per frame
     console.log(options);
+    var relPosHolder = null;
     if (options.hasOwnProperty('parentElement')) {
         options.parentElt = options.parentElement;
         if (!(options.parentElt instanceof jQuery)) options.parentElt = $(options.parentElt);
-        var relPosHolder = document.createElement("div");
+        relPosHolder = document.createElement("div");
         relPosHolder.style.position = "relative";
         relPosHolder.style.height = "0px";
         relPosHolder.style.width = "0px";
@@ -435,21 +436,32 @@ function makeItRain(options) {
     options.splash = (options.hasOwnProperty('splash')) ? options.splash : true;
     var rain = {};
     var mt = mouseTracker();
-    var int1 =  setInterval(function() {
-        var mouse_x = mt.getMouseX();
-        var x = Math.round(Math.random() * options.parentElt.width());
-        var rot = 0;
-        if (mouse_x < options.parentElt.offset().left) rot = 30;
-        else if (mouse_x > options.parentElt.offset().left + options.parentElt.width()) rot = -30;
-        else {
-            rot = ((options.parentElt.width() + options.parentElt.offset().left) / 2 - mouse_x)
-                    * 60 / options.parentElt.width();
-        }
-        makeRainDrop(x, rot, options);
-    }, options.frequency);
+    var int1 = null;
     rain.stop = function () {
-        clearInterval(int1);
+        if (int1) clearInterval(int1);
     }
+    rain.start = function () {
+        int1 = setInterval(function() {
+            var mouse_x = mt.getMouseX();
+            var x = Math.round(Math.random() * options.parentElt.width());
+            var rot = 0;
+            if (mouse_x < options.parentElt.offset().left) rot = 30;
+            else if (mouse_x > options.parentElt.offset().left + options.parentElt.width()) rot = -30;
+            else {
+                rot = ((options.parentElt.width() + options.parentElt.offset().left) / 2 - mouse_x)
+                        * 60 / options.parentElt.width();
+            }
+            makeRainDrop(x, rot, options);
+        }, options.frequency);
+    }
+    rain.remove = function () {
+        rain.stop();
+        if (relPosHolder) {
+            if (options.parentElement instanceof jQuery) options.parentElement.get(0).removeChild(relPosHolder);
+            else options.parentElement.removeChild(relPosHolder);
+        }
+    }
+    rain.start();
     return rain;
 }
 
