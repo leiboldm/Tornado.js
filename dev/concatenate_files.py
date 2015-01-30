@@ -1,4 +1,7 @@
 filenames = ['Tornado.js', 'Lightning.js', 'Person.js', 'Rain.js', 'Destruction.js']
-with open('../release/tornado_all.js', 'w') as outfile:
-    for line in itertools.chain.from_iterable(itertools.imap(open, filnames)):
-        outfile.write(line)
+outfile = open('../release/tornado_all.js', 'w')
+for filename in filenames:
+	fc = open(filename, 'r')
+	outfile.write(fc.read())
+	fc.close()
+outfile.close()
