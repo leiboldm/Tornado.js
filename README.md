@@ -2,9 +2,9 @@ Read Me
 
 Tornado.js requires jQuery.
 
-To use tornado.js, download tornado_all.js and use a script tag to add it to your page:
+To use tornado.js, download tornado_all.js from the release folder and use a script tag to add it to your page:
 
-<script type="text/javascript" src="tornado_all.js"></script>
+&lt;script type="text/javascript" src="tornado_all.js"&gt;&lt;/script&gt;
 
 To create a basic tornado that has two people and spins the elements on the page, call the function spawnTornado, if you
 wish to stop the tornado, call the function stop on the return value of spawnTornado like so:
